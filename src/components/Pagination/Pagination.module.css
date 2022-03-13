@@ -1,0 +1,31 @@
+.navigation {
+    display: flex;
+    justify-content: center;
+}
+
+.navigation li {
+    list-style: none;
+}
+
+.button {
+    width: 30px!important;
+    height: 30px!important;
+    color: var(--color-blue);
+    margin: 5px;
+    border-radius: 2px;
+    border: 2px solid var(--color-grey);
+    cursor: pointer;
+    outline: none;
+    font-family: 'Jost';
+    font-weight: 500;
+}
+
+.button:hover {
+    box-shadow: var(--color-blue) 0px 1px 4px;
+    border: 2px solid var(--color-blue--hover);
+}
+
+.active {
+    background-color: var(--color-blue);
+    color: #ffff;
+}

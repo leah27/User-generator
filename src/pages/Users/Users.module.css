@@ -1,0 +1,45 @@
+.search {
+    height: 30px;
+    width: 300px;
+    border: 1px solid var(--color-blue);
+    outline: none;
+    border-radius: 5px;
+    padding-left: 15px;
+    margin: 0 auto 20px;
+    text-transform: capitalize;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+thead {
+    height: 40px;
+    background-color: #ffff;
+    color: var(--color-blue);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+th {
+    font-weight: 500;    
+}
+
+tbody {
+    font-weight: 300;;
+}
+
+tr {
+    border-bottom: 1px solid var(--color-grey);
+}
+
+td {
+    padding: 10px 0;
+    text-align: center;
+}
+
+.photo {
+    border-radius: 50%;
+}
+

@@ -1,0 +1,24 @@
+:root {
+  --color-blue: #3e8ef7;
+  --color-blue-hover: #589ffc;
+  --color-grey: #ccd5db;
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+body, .App, #root {
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Jost';
+}
+
+.content {
+  background-color: #e4eaec;
+  padding: 40px;
+  min-height: calc(100vh - 80px);
+}
