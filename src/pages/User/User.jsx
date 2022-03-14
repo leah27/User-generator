@@ -1,7 +1,8 @@
 import { useLocation } from 'react-router-dom'
 import style from './User.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPassport, faUser, faLocationDot, faFaceFrown } from '@fortawesome/free-solid-svg-icons'
+import { faPassport, faUser, faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import ErrorPage from '../ErrorPage/ErrorPage'
 
 const User = () => {
     const location = useLocation()
@@ -15,7 +16,7 @@ const User = () => {
                     <p><span className={style.key}><FontAwesomeIcon icon={faUser} /> username: </span>{user.login.username}</p>
                     <p><span className={style.key}><FontAwesomeIcon icon={faLocationDot} /> address: </span>{Object.values(user.location.street) + ',' + user.location.city + ' ' + user.location.postcode}</p>
                 </div>
-            </div> : <div className={style.notFound}>user not found <FontAwesomeIcon icon={faFaceFrown} /></div>}
+            </div> : <ErrorPage message='user not found' />}
         </>
     )
 }

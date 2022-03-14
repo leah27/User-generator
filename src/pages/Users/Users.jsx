@@ -13,15 +13,15 @@ const Users = ({ data }) => {
     const firstUserIndex = lastUserIndex - usersPerPage
     const currentUsers = data.slice(firstUserIndex, lastUserIndex)
     const [searchTerm, setSearchTerm] = useState('')
-    const columns = ['', 'firstName', 'lastName', 'city', 'email']
+    const columns = ['', 'name.first', 'name.last', 'location.city', 'email']
     const handleChange = event => {
         event.persist()
-        setSearchTerm(event.target.value) 
+        setSearchTerm(event.target.value)
     }
     const searchResult = (users) => {
         return users.filter(user =>
-           user.name.first.toLowerCase().includes(searchTerm) ||
-           user.location.city.toLowerCase().includes(searchTerm)
+            user.name.first.toLowerCase().includes(searchTerm) ||
+            user.location.city.toLowerCase().includes(searchTerm)
         )
     }
     return (
@@ -30,20 +30,21 @@ const Users = ({ data }) => {
             <table cellPadding={0} cellSpacing={0}>
                 <thead>
                     <tr>{columns.map((heading, index) => <th key={index}>
-                        {heading.replace(/(?=[A-Z])/, ' ')}
+                        {heading === 'location.city' ? heading.split('.')[1] : heading.replace('.', ' ').split(' ').reverse().join(' ')}
                         {heading === 'email' ? <FontAwesomeIcon icon={!hideEmail ? faEye : faEyeSlash} style={{ cursor: 'pointer', paddingLeft: '7px' }} onClick={() => { setHideEmail(!hideEmail) }} />
-                        : heading === '' ? <FontAwesomeIcon icon={faLink} /> : ''}
+                            : heading === '' ? <FontAwesomeIcon icon={faLink} /> : ''}
                     </th>)}
                     </tr>
                 </thead>
                 <tbody>
-                    {searchResult(currentUsers).map((user, index) => 
+                    {searchResult(currentUsers).map((user, index) =>
                         <tr key={index}>
-                            <td><Link to={`/user/:${user.login.username}`} state={user}><img src={user.picture.medium} alt='photo' className={style.photo} /></Link></td>
-                            <td>{user.name.first}</td>
-                            <td>{user.name.last}</td>
-                            <td>{user.location.city}</td>
-                            <td>{!hideEmail ? user.email : user.email.replace(/./gi, "x")}</td>
+                            {columns.map((column, index) => <td key={index}>
+                                {column === '' ? <Link to={`/user/:${user.login.username}`} state={user}>
+                                    <img src={user.picture.medium} alt='photo' className={style.photo} /></Link>
+                                    : (column === 'email' && hideEmail) ? user.email.replace(/./gi, "x")
+                                        : column.split('.').reduce((o, i) => o[i], user)}
+                            </td>)}
                         </tr>
                     )}
                 </tbody>

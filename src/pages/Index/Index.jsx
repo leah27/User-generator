@@ -1,7 +1,7 @@
 import style from './Index.module.css'
 import { Link } from "react-router-dom";
 
-const Index = ({data}) => {
+const Index = ({ data }) => {
     let randomUser = data[Math.floor(Math.random() * data.length)];
     return (
         <div className={style.wrapper}>
