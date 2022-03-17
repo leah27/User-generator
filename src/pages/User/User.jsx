@@ -12,7 +12,7 @@ const User = () => {
             {user !== null && window.location.pathname.includes(user.login.username) ? <div className={style.wrapper}>
                 <img src={user.picture.large} alt='photo' className={style.photo} />
                 <div className={style.info}>
-                    <p><span className={style.key}><FontAwesomeIcon icon={faPassport} /> full name: </span>{Object.values(user.name).slice(1).join(' ')}</p>
+                    <p><span className={style.key}><FontAwesomeIcon icon={faPassport} /> full name: </span>{user.name.first} {user.name.last}</p>
                     <p><span className={style.key}><FontAwesomeIcon icon={faUser} /> username: </span>{user.login.username}</p>
                     <p><span className={style.key}><FontAwesomeIcon icon={faLocationDot} /> address: </span>{Object.values(user.location.street) + ',' + user.location.city + ' ' + user.location.postcode}</p>
                 </div>

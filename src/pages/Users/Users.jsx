@@ -11,12 +11,12 @@ const Users = ({ data }) => {
     const [hideEmail, setHideEmail] = useState(false)
     const lastUserIndex = currentPage * usersPerPage
     const firstUserIndex = lastUserIndex - usersPerPage
-    const currentUsers = data.slice(firstUserIndex, lastUserIndex)
     const [searchTerm, setSearchTerm] = useState('')
     const columns = ['', 'name.first', 'name.last', 'location.city', 'email']
     const handleChange = event => {
         event.persist()
         setSearchTerm(event.target.value)
+        setCurrentPage(1)
     }
     const searchResult = (users) => {
         return users.filter(user =>
@@ -24,6 +24,7 @@ const Users = ({ data }) => {
             user.location.city.toLowerCase().includes(searchTerm)
         )
     }
+    const currentUsers = searchResult(data).slice(firstUserIndex, lastUserIndex) 
     return (
         <>
             <input placeholder="Search" type="text" autoComplete="off" value={searchTerm} onChange={handleChange} className={style.search} />
@@ -37,8 +38,8 @@ const Users = ({ data }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {searchResult(currentUsers).map((user, index) =>
-                        <tr key={index}>
+                    {currentUsers.map(user =>
+                        <tr key={user.login.uuid}>
                             {columns.map((column, index) => <td key={index}>
                                 {column === '' ? <Link to={`/user/:${user.login.username}`} state={user}>
                                     <img src={user.picture.medium} alt='photo' className={style.photo} /></Link>
@@ -49,7 +50,7 @@ const Users = ({ data }) => {
                     )}
                 </tbody>
             </table>
-            <Pagination currentPage={currentPage} dataPerPage={usersPerPage} totalData={data.length} paginate={(pageNumber) => setCurrentPage(pageNumber)} />
+            <Pagination currentPage={currentPage} dataPerPage={usersPerPage} totalData={searchTerm === '' ? data.length : searchResult(data).length} paginate={(pageNumber) => setCurrentPage(pageNumber)} />
         </>
     )
 }
